@@ -18,7 +18,7 @@ body {
 
 /* Question box */
 .box {
-  background: white;
+  background: black;
   padding: 45px;
   border-radius: 25px;
   text-align: center;
@@ -92,7 +92,7 @@ button {
 
 <!-- 💌 QUESTION -->
 <div class="box">
-  <h1>Hey HER_NAME_HERE 💕</h1>
+  <h1>Hey Tanuu(Sweeta) 💕</h1>
   <h2>Will you be my Valentine? 💘</h2>
 
   <button id="yes">Yes 💖</button>
@@ -149,13 +149,13 @@ yesBtn.addEventListener("click", () => {
       width:300px;
       max-width:90%;
       height:400px;
-      object-fit:cover;
+      object-fit:contain;
       border-radius:20px;
       box-shadow:0 15px 40px rgba(0,0,0,0.4);
       margin:20px 0;
     ">
 
-    <h3>I love you endlessly 😘💗</h3>
+    <h3>I love you forever baby 😘💗</h3>
   `;
 
   document.body.appendChild(final);
@@ -166,25 +166,20 @@ yesBtn.addEventListener("click", () => {
     photos.push(`photo${i}.jpeg`);
   }
 
-  let index = 0;
-  const slideImg = document.getElementById("slideshow");
+let index = 0;
+const slideImg = document.getElementById("slideshow");
 
-  const interval = setInterval(() => {
-    slideImg.classList.remove("show");
+const interval = setInterval(() => {
+  slideImg.classList.remove("show");
 
-    setTimeout(() => {
-      index++;
-      if (index < photos.length) {
-        slideImg.src = photos[index];
-        slideImg.classList.add("show");
-      }
-    }, 600);
+  setTimeout(() => {
+    index = (index + 1) % photos.length; // 🔁 LOOP
+    slideImg.src = photos[index];
+    slideImg.classList.add("show");
+  }, 600);
 
-  }, 3000);
+}, 3000);
 
-  music.addEventListener("ended", () => {
-    clearInterval(interval);
-  });
 });
 
 /* Hearts animation */
@@ -200,3 +195,4 @@ setInterval(() => {
 
 </body>
 </html>
+
