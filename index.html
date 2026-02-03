@@ -16,7 +16,7 @@ body {
   font-family: 'Segoe UI', sans-serif;
 }
 
-/* Main box */
+/* Question box */
 .box {
   background: white;
   padding: 45px;
@@ -27,14 +27,8 @@ body {
   z-index: 10;
 }
 
-h1 {
-  color: #ff4b5c;
-}
-
-h2 {
-  color: #ff758c;
-  margin-bottom: 30px;
-}
+h1 { color: #ff4b5c; }
+h2 { color: #ff758c; margin-bottom: 30px; }
 
 button {
   padding: 14px 35px;
@@ -65,7 +59,7 @@ button {
   100% { transform: translateX(0); }
 }
 
-/* Floating hearts */
+/* Hearts */
 .heart {
   position: absolute;
   font-size: 20px;
@@ -73,28 +67,22 @@ button {
 }
 
 @keyframes floatUp {
-  from {
-    transform: translateY(100vh);
-    opacity: 1;
-  }
-  to {
-    transform: translateY(-10vh);
-    opacity: 0;
-  }
+  from { transform: translateY(100vh); opacity: 1; }
+  to { transform: translateY(-10vh); opacity: 0; }
 }
 </style>
 </head>
 
 <body>
 
-<!-- 🎶 MUSIC -->
+<!-- 🎶 MUSIC (never removed) -->
 <audio id="music" loop>
   <source src="love.mp3" type="audio/mpeg">
 </audio>
 
-<!-- 💌 QUESTION BOX -->
+<!-- 💌 QUESTION -->
 <div class="box">
-  <h1>Hey tanuu 💕</h1>
+  <h1>Hey Tanuuu(sweeta)💕</h1>
   <h2>Will you be my Valentine? 💘</h2>
 
   <button id="yes">Yes 💖</button>
@@ -106,7 +94,10 @@ const noBtn = document.getElementById("no");
 const yesBtn = document.getElementById("yes");
 const music = document.getElementById("music");
 
-/* NO button escape 😈 */
+music.volume = 1.0;
+music.muted = false;
+
+/* No button escape */
 noBtn.addEventListener("mouseover", () => {
   const x = Math.random() * (window.innerWidth - 120);
   const y = Math.random() * (window.innerHeight - 80);
@@ -114,15 +105,15 @@ noBtn.addEventListener("mouseover", () => {
   noBtn.style.top = y + "px";
 });
 
-/* Play music on first tap */
+/* Start music on first interaction */
 document.body.addEventListener("click", () => {
   music.play();
 }, { once: true });
 
-/* YES clicked 💖 */
-yesBtn.onclick = () => {
+/* YES CLICK — NO PAGE RELOAD */
+yesBtn.addEventListener("click", () => {
 
-  // force music to play again
+  // restart music clearly
   music.currentTime = 0;
   music.play();
 
@@ -131,78 +122,55 @@ yesBtn.onclick = () => {
 
   // create final screen
   const final = document.createElement("div");
-  final.className = "final";
+  final.style.cssText = `
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ff4b5c,#ffb6c1);
+    color:white;
+    font-family:Segoe UI;
+    text-align:center;
+    padding:20px;
+  `;
+
   final.innerHTML = `
-    <style>
-      .final {
-        height:100vh;
-        display:flex;
-        flex-direction:column;
-        justify-content:center;
-        align-items:center;
-        background:linear-gradient(135deg,#ff4b5c,#ffb6c1);
-        color:white;
-        font-family:Segoe UI;
-        text-align:center;
-        padding:20px;
-      }
-
-      .slideshow {
-        width:300px;
-        max-width:90%;
-        border-radius:20px;
-        overflow:hidden;
-        box-shadow:0 15px 40px rgba(0,0,0,0.4);
-        margin:20px 0;
-      }
-
-      .slideshow img {
-        width:100%;
-        opacity:0;
-        animation: fade 9s infinite;
-      }
-
-      .slideshow img:nth-child(1){animation-delay:0s;}
-      .slideshow img:nth-child(2){animation-delay:3s;}
-      .slideshow img:nth-child(3){animation-delay:6s;}
-
-      @keyframes fade {
-        0%{opacity:0;}
-        10%{opacity:1;}
-        30%{opacity:1;}
-        40%{opacity:0;}
-        100%{opacity:0;}
-      }
-    </style>
-
-    <h1>YAYYY! 💖🥰</h1>
+    <h1 style="font-size:42px;">YAYYY! 💖🥰</h1>
     <h2>Forever us 💍💕</h2>
 
-    <div class="slideshow">
-      <img src="photo1.jpeg">
-      <img src="photo2.jpeg">
-      <img src="photo3.jpeg">
+    <div style="
+      width:300px;
+      max-width:90%;
+      border-radius:20px;
+      overflow:hidden;
+      box-shadow:0 15px 40px rgba(0,0,0,0.4);
+      margin:20px 0;
+    ">
+      <img src="photo1.jpeg" style="width:100%;animation:fade 9s infinite;">
+      <img src="photo2.jpeg" style="width:100%;animation:fade 9s infinite 3s;">
+      <img src="photo3.jpeg" style="width:100%;animation:fade 9s infinite 6s;">
     </div>
 
     <h3>I love you endlessly 😘💗</h3>
   `;
 
   document.body.appendChild(final);
-};
+});
 
+/* Fade animation */
+const style = document.createElement("style");
+style.innerHTML = `
+@keyframes fade {
+  0% {opacity:0;}
+  10% {opacity:1;}
+  30% {opacity:1;}
+  40% {opacity:0;}
+  100% {opacity:0;}
+}`;
+document.head.appendChild(style);
 
-  /* Hearts continue */
-  setInterval(() => {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerHTML = "💗";
-    heart.style.left = Math.random() * window.innerWidth + "px";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 6000);
-  }, 400);
-};
-
-/* Initial hearts */
+/* Hearts continuously */
 setInterval(() => {
   const heart = document.createElement("div");
   heart.className = "heart";
@@ -215,5 +183,3 @@ setInterval(() => {
 
 </body>
 </html>
-
-
