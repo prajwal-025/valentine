@@ -64,6 +64,7 @@ button {
   position: absolute;
   font-size: 20px;
   animation: floatUp 6s linear infinite;
+  pointer-events: none; /* ✅ THIS IS THE FIX */
 }
 
 @keyframes floatUp {
@@ -183,3 +184,4 @@ setInterval(() => {
 
 </body>
 </html>
+
