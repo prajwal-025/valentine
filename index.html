@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Be My Valentine 💖</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #ff4b5c, #ffb6c1);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Main box */
+.box {
+  background: white;
+  padding: 45px;
+  border-radius: 25px;
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+  position: relative;
+  z-index: 10;
+}
+
+h1 {
+  color: #ff4b5c;
+}
+
+h2 {
+  color: #ff758c;
+  margin-bottom: 30px;
+}
+
+button {
+  padding: 14px 35px;
+  font-size: 18px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+#yes {
+  background: #ff4b5c;
+  color: white;
+  margin-right: 20px;
+}
+
+#no {
+  background: #ddd;
+  color: #333;
+  position: absolute;
+  animation: shake 0.4s infinite;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  50% { transform: translateX(2px); }
+  75% { transform: translateX(-2px); }
+  100% { transform: translateX(0); }
+}
+
+/* Floating hearts */
+.heart {
+  position: absolute;
+  font-size: 20px;
+  animation: floatUp 6s linear infinite;
+}
+
+@keyframes floatUp {
+  from {
+    transform: translateY(100vh);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-10vh);
+    opacity: 0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎶 MUSIC -->
+<audio id="music" loop>
+  <source src="love.mp3" type="audio/mpeg">
+</audio>
+
+<!-- 💌 QUESTION BOX -->
+<div class="box">
+  <h1>Hey tanuu 💕</h1>
+  <h2>Will you be my Valentine? 💘</h2>
+
+  <button id="yes">Yes 💖</button>
+  <button id="no">No 🙈</button>
+</div>
+
+<script>
+const noBtn = document.getElementById("no");
+const yesBtn = document.getElementById("yes");
+const music = document.getElementById("music");
+
+/* NO button escape 😈 */
+noBtn.addEventListener("mouseover", () => {
+  const x = Math.random() * (window.innerWidth - 120);
+  const y = Math.random() * (window.innerHeight - 80);
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+});
+
+/* Play music on first tap */
+document.body.addEventListener("click", () => {
+  music.play();
+}, { once: true });
+
+/* YES clicked 💖 */
+yesBtn.onclick = () => {
+  document.body.innerHTML = `
+  <style>
+    .final {
+      height:100vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      background:linear-gradient(135deg,#ff4b5c,#ffb6c1);
+      color:white;
+      font-family:Segoe UI;
+      text-align:center;
+      padding:20px;
+    }
+
+    .slideshow {
+      width:300px;
+      max-width:90%;
+      border-radius:20px;
+      overflow:hidden;
+      box-shadow:0 15px 40px rgba(0,0,0,0.4);
+      margin:20px 0;
+    }
+
+    .slideshow img {
+      width:100%;
+      opacity:0;
+      animation: fade 9s infinite;
+    }
+
+    .slideshow img:nth-child(1) { animation-delay:0s; }
+    .slideshow img:nth-child(2) { animation-delay:3s; }
+    .slideshow img:nth-child(3) { animation-delay:6s; }
+
+    @keyframes fade {
+      0% { opacity:0; }
+      10% { opacity:1; }
+      30% { opacity:1; }
+      40% { opacity:0; }
+      100% { opacity:0; }
+    }
+  </style>
+
+  <div class="final">
+    <h1>YAYYY! 💖🥰</h1>
+    <h2>Forever us 💍💕</h2>
+
+    <div class="slideshow">
+      <img src="photo1.jpg">
+      <img src="photo2.jpg">
+      <img src="photo3.jpg">
+    </div>
+
+    <h3>I love you endlessly 😘💗</h3>
+  </div>
+  `;
+
+  /* Hearts continue */
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💗";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+  }, 400);
+};
+
+/* Initial hearts */
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "💗";
+  heart.style.left = Math.random() * window.innerWidth + "px";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 6000);
+}, 500);
+</script>
+
+</body>
+</html>
