@@ -146,14 +146,16 @@ yesBtn.addEventListener("click", () => {
     <h2>Forever us 💍💕</h2>
 
     <img id="slideshow" class="fade show" src="photo1.jpeg" style="
-      width:300px;
-      max-width:90%;
-      height:400px;
-      object-fit:contain;
-      border-radius:20px;
-      box-shadow:0 15px 40px rgba(0,0,0,0.4);
-      margin:20px 0;
-    ">
+  max-width:90vw;
+  max-height:60vh;
+  width:auto;
+  height:auto;
+  object-fit:contain;
+  background:transparent;
+  border-radius:20px;
+  box-shadow:0 15px 40px rgba(0,0,0,0.4);
+  margin:20px 0;
+">
 
     <h3>I love you forever baby 😘💗</h3>
   `;
@@ -173,7 +175,7 @@ const interval = setInterval(() => {
   slideImg.classList.remove("show");
 
   setTimeout(() => {
-    index = (index + 1) % photos.length; // 🔁 LOOP
+    index = (index + 1) % photos.length; // 🔁 LOOP FOREVER
     slideImg.src = photos[index];
     slideImg.classList.add("show");
   }, 600);
@@ -195,4 +197,5 @@ setInterval(() => {
 
 </body>
 </html>
+
 
