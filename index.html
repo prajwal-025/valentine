@@ -59,31 +59,40 @@ button {
   100% { transform: translateX(0); }
 }
 
-/* Hearts */
+/* Floating hearts */
 .heart {
   position: absolute;
   font-size: 20px;
   animation: floatUp 6s linear infinite;
-  pointer-events: none; /* ✅ THIS IS THE FIX */
+  pointer-events: none;
 }
 
 @keyframes floatUp {
   from { transform: translateY(100vh); opacity: 1; }
   to { transform: translateY(-10vh); opacity: 0; }
 }
+
+/* Fade effect */
+.fade {
+  opacity: 0;
+  transition: opacity 1.2s ease-in-out;
+}
+.fade.show {
+  opacity: 1;
+}
 </style>
 </head>
 
 <body>
 
-<!-- 🎶 MUSIC (never removed) -->
-<audio id="music" loop>
+<!-- 🎶 MUSIC -->
+<audio id="music">
   <source src="love.mp3" type="audio/mpeg">
 </audio>
 
 <!-- 💌 QUESTION -->
 <div class="box">
-  <h1>Hey Tanuuu(sweeta)💕</h1>
+  <h1>Hey HER_NAME_HERE 💕</h1>
   <h2>Will you be my Valentine? 💘</h2>
 
   <button id="yes">Yes 💖</button>
@@ -91,14 +100,13 @@ button {
 </div>
 
 <script>
-const noBtn = document.getElementById("no");
 const yesBtn = document.getElementById("yes");
+const noBtn = document.getElementById("no");
 const music = document.getElementById("music");
 
 music.volume = 1.0;
-music.muted = false;
 
-/* No button escape */
+/* NO button escape */
 noBtn.addEventListener("mouseover", () => {
   const x = Math.random() * (window.innerWidth - 120);
   const y = Math.random() * (window.innerHeight - 80);
@@ -111,17 +119,14 @@ document.body.addEventListener("click", () => {
   music.play();
 }, { once: true });
 
-/* YES CLICK — NO PAGE RELOAD */
+/* YES CLICK */
 yesBtn.addEventListener("click", () => {
 
-  // restart music clearly
   music.currentTime = 0;
   music.play();
 
-  // remove question box only
   document.querySelector(".box").remove();
 
-  // create final screen
   const final = document.createElement("div");
   final.style.cssText = `
     height:100vh;
@@ -140,38 +145,49 @@ yesBtn.addEventListener("click", () => {
     <h1 style="font-size:42px;">YAYYY! 💖🥰</h1>
     <h2>Forever us 💍💕</h2>
 
-    <div style="
+    <img id="slideshow" class="fade show" src="photo1.jpeg" style="
       width:300px;
       max-width:90%;
+      height:400px;
+      object-fit:cover;
       border-radius:20px;
-      overflow:hidden;
       box-shadow:0 15px 40px rgba(0,0,0,0.4);
       margin:20px 0;
     ">
-      <img src="photo1.jpeg" style="width:100%;animation:fade 9s infinite;">
-      <img src="photo2.jpeg" style="width:100%;animation:fade 9s infinite 3s;">
-      <img src="photo3.jpeg" style="width:100%;animation:fade 9s infinite 6s;">
-    </div>
 
     <h3>I love you endlessly 😘💗</h3>
   `;
 
   document.body.appendChild(final);
+
+  /* PHOTO LIST (32 photos) */
+  const photos = [];
+  for (let i = 1; i <= 32; i++) {
+    photos.push(`photo${i}.jpeg`);
+  }
+
+  let index = 0;
+  const slideImg = document.getElementById("slideshow");
+
+  const interval = setInterval(() => {
+    slideImg.classList.remove("show");
+
+    setTimeout(() => {
+      index++;
+      if (index < photos.length) {
+        slideImg.src = photos[index];
+        slideImg.classList.add("show");
+      }
+    }, 600);
+
+  }, 3000);
+
+  music.addEventListener("ended", () => {
+    clearInterval(interval);
+  });
 });
 
-/* Fade animation */
-const style = document.createElement("style");
-style.innerHTML = `
-@keyframes fade {
-  0% {opacity:0;}
-  10% {opacity:1;}
-  30% {opacity:1;}
-  40% {opacity:0;}
-  100% {opacity:0;}
-}`;
-document.head.appendChild(style);
-
-/* Hearts continuously */
+/* Hearts animation */
 setInterval(() => {
   const heart = document.createElement("div");
   heart.className = "heart";
@@ -184,4 +200,3 @@ setInterval(() => {
 
 </body>
 </html>
-
