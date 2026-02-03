@@ -121,50 +121,60 @@ document.body.addEventListener("click", () => {
 
 /* YES clicked 💖 */
 yesBtn.onclick = () => {
-  document.body.innerHTML = `
-  <style>
-    .final {
-      height:100vh;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      background:linear-gradient(135deg,#ff4b5c,#ffb6c1);
-      color:white;
-      font-family:Segoe UI;
-      text-align:center;
-      padding:20px;
-    }
 
-    .slideshow {
-      width:300px;
-      max-width:90%;
-      border-radius:20px;
-      overflow:hidden;
-      box-shadow:0 15px 40px rgba(0,0,0,0.4);
-      margin:20px 0;
-    }
+  // force music to play again
+  music.currentTime = 0;
+  music.play();
 
-    .slideshow img {
-      width:100%;
-      opacity:0;
-      animation: fade 9s infinite;
-    }
+  // remove question box only
+  document.querySelector(".box").remove();
 
-    .slideshow img:nth-child(1) { animation-delay:0s; }
-    .slideshow img:nth-child(2) { animation-delay:3s; }
-    .slideshow img:nth-child(3) { animation-delay:6s; }
+  // create final screen
+  const final = document.createElement("div");
+  final.className = "final";
+  final.innerHTML = `
+    <style>
+      .final {
+        height:100vh;
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+        background:linear-gradient(135deg,#ff4b5c,#ffb6c1);
+        color:white;
+        font-family:Segoe UI;
+        text-align:center;
+        padding:20px;
+      }
 
-    @keyframes fade {
-      0% { opacity:0; }
-      10% { opacity:1; }
-      30% { opacity:1; }
-      40% { opacity:0; }
-      100% { opacity:0; }
-    }
-  </style>
+      .slideshow {
+        width:300px;
+        max-width:90%;
+        border-radius:20px;
+        overflow:hidden;
+        box-shadow:0 15px 40px rgba(0,0,0,0.4);
+        margin:20px 0;
+      }
 
-  <div class="final">
+      .slideshow img {
+        width:100%;
+        opacity:0;
+        animation: fade 9s infinite;
+      }
+
+      .slideshow img:nth-child(1){animation-delay:0s;}
+      .slideshow img:nth-child(2){animation-delay:3s;}
+      .slideshow img:nth-child(3){animation-delay:6s;}
+
+      @keyframes fade {
+        0%{opacity:0;}
+        10%{opacity:1;}
+        30%{opacity:1;}
+        40%{opacity:0;}
+        100%{opacity:0;}
+      }
+    </style>
+
     <h1>YAYYY! 💖🥰</h1>
     <h2>Forever us 💍💕</h2>
 
@@ -175,8 +185,11 @@ yesBtn.onclick = () => {
     </div>
 
     <h3>I love you endlessly 😘💗</h3>
-  </div>
   `;
+
+  document.body.appendChild(final);
+};
+
 
   /* Hearts continue */
   setInterval(() => {
@@ -202,4 +215,5 @@ setInterval(() => {
 
 </body>
 </html>
+
 
